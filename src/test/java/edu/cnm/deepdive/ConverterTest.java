@@ -6,18 +6,19 @@ import org.junit.jupiter.api.Test;
 
 class ConverterTest {
 
-  static double[] celsiusValues = {-40, 0, 100, 37.1};
-  static double[] expectedFahrenheitValues = {-40, 32, 212, 98.78};
   static final double TOLERANCE = 0.0001;
-
-  static double[] fahrenheitValues = {-40, 32, 212, 98.78};
-  static double[] expectedCelsiusValues = {-40, 0, 100, 37.1};
+  static final double[][] temperaturePairs = {
+      {-40, -40},
+      {0, 32},
+      {100, 212},
+      {37.1, 98.78}
+  };
 
   @Test
   void convertC2F() {
-    for (int i = 0; i < celsiusValues.length; i++) {
-      double celsius = celsiusValues[i];
-      double expectedFahrenheit = expectedFahrenheitValues[i];
+    for (double[] testcase : temperaturePairs) {
+      double celsius = testcase[0];
+      double expectedFahrenheit = testcase[1];
       double actualFahrenheit = Converter.convertC2F(celsius);
       assertEquals(expectedFahrenheit, actualFahrenheit, TOLERANCE);
     }
@@ -25,12 +26,11 @@ class ConverterTest {
 
   @Test
   void convertF2C() {
-    for (int i = 0; i < fahrenheitValues.length; i++) {
-      double fahrenheit = fahrenheitValues[i];
-      double expectedCelsius = expectedCelsiusValues[i];
+    for (double[] testcase : temperaturePairs) {
+      double fahrenheit = testcase[1];
+      double expectedCelsius = testcase[0];
       double actualCelsius = Converter.convertF2C(fahrenheit);
       assertEquals(expectedCelsius, actualCelsius, TOLERANCE);
     }
-
-  } //TODO implement test for fahrenheit to celsius conversion
+  }
 }
